@@ -4,7 +4,7 @@ public class Predicate1 {
     public static void main(String[] args) {
 
         String longer = StringUtils.betterString("guys", "hello", (s1, s2) -> s1.length() > s2.length());
-        String first = StringUtils.betterString("String 1", "String 2", (s1, s2) -> true);
+        String first = StringUtils.betterString("HI", "hi", (s1, s2) -> s1.toLowerCase().equals(s2));
         System.out.println(longer);
         System.out.println(first);
     }
@@ -12,14 +12,10 @@ public class Predicate1 {
 
 class StringUtils {
     public static String betterString(String s1, String s2, TwoStringPredicate predicate) {
-        if (predicate.method(s1, s2)) {
-            return s1;
-        } else {
-            return s2;
-        }
+        return predicate.compare(s1, s2) ? s1 : s2;
     }
 
     public interface TwoStringPredicate {
-        boolean method(String s1, String s2);
+        boolean compare(String t1, String t2);
     }
 }
